@@ -1,0 +1,250 @@
+<html>
+<head>
+    <script>
+
+        var oldCanvas;
+
+        function drawCanvas() {
+
+            var height = window.innerHeight;
+
+            var canvas = document.createElement('canvas');
+            canvas.style.bottom = height + 'px';
+
+            canvas.style.position = 'fixed';
+            canvas.style.left = 0;
+            canvas.style.top = 0;
+            canvas.style.bottom = 0;
+            canvas.style.width = '20px';
+            canvas.setAttribute('width', '20');
+            canvas.setAttribute('height', height.toString());
+            canvas.style.position = 'fixed';
+
+            var element_list = window.document.querySelectorAll('input.required');
+            var offset = window.document.body.offsetHeight;
+
+            var context = canvas.getContext("2d");
+            context.fillStyle = "red";
+
+
+            for (var i = 0; i < element_list.length; i++) {
+
+                var element = element_list[i];
+
+                var color = '';
+
+                if (element.classList.contains('complete')) {
+                    color = "green";
+
+                    var y = height * (element.offsetTop / offset);
+                    var h = height * (((element.offsetTop + element.offsetHeight) / offset)) - y;
+                    var y2 = y + h;
+
+                    context.fillStyle = color;
+                    context.strokeStyle = 'black';
+                    context.fillRect(0, y, 20, h);
+                    context.strokeRect(0, y, 20, h);
+                }
+            }
+
+            for (var i = 0; i < element_list.length; i++) {
+
+                var element = element_list[i];
+
+                var color = '';
+
+                if (!element.classList.contains('complete')) {
+                    color = "red";
+
+                    var y = height * (element.offsetTop / offset);
+                    var h = height * (((element.offsetTop + element.offsetHeight) / offset)) - y;
+                    var y2 = y + h;
+
+                    context.fillStyle = color;
+                    context.strokeStyle = 'black';
+                    context.fillRect(0, y, 20, h);
+                    context.strokeRect(0, y, 20, h);
+                }
+            }
+
+
+            window.document.body.appendChild(canvas);
+            if (oldCanvas != undefined) {
+                oldCanvas.remove();
+            }
+
+            oldCanvas = canvas;
+
+            canvas.addEventListener('click', function (e) {
+                var o = window.innerHeight/2;
+                var y = ((e.clientY / canvas.offsetHeight) * offset) - o;
+                window.scrollTo(0, y);
+            });
+        }
+
+        function init() {
+            window.addEventListener('resize', drawCanvas);
+            window.document.body.style.paddingLeft = 'calc(20px + 1em)';
+            drawCanvas();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+    <style>
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .section {
+            padding-top: 2em;
+        }
+
+        .title {
+            font-size: 2em;
+        }
+
+        .navigation {
+
+            padding: 0.25em;
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .navigation a {
+            margin-right: 0.5em;
+            text-decoration: none;
+        }
+
+        .content {
+            margin-top: 0;
+            margin-bottom: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="navigation">
+    <a href="#section_0">
+        <button>Section One</button>
+    </a>
+    <a href="#section_1">
+        <button>Section Two</button>
+    </a>
+    <a href="#section_2">
+        <button>Section Three</button>
+    </a>
+    <a href="#section_3">
+        <button>Section Four</button>
+    </a>
+    <a href="#section_4">
+        <button>Section Five</button>
+    </a>
+    <a href="#section_5">
+        <button>Section Six</button>
+    </a>
+</div>
+
+<div class="content">
+    <div class="section" id="section_0">
+        <div class="title">Section One</div>
+        Content for Section One. Content for Section One. Content for Section One. Content for Section One. Content for
+        Section One. Content for Section One. Content for Section One. Content for Section One. Content for Section One.
+        Content for Section One. Content for Section One. Content for Section One. Content for Section One. Content for
+        Section One. Content for Section One. Content for Section One. Content for Section One. Content for Section One.
+        Content for Section One. Content for Section One. Content for Section One. Content for Section One. Content for
+        Section One. Content for Section One. Content for Section One. Content for Section One. Content for Section One.
+        <input class="required complete">
+        Content for Section One. Content for Section One. Content for Section One. Content for Section One. Content for
+        Section One. Content for Section One. Content for Section One. Content for Section One. Content for Section One.
+        Content for Section One. Content for Section One. Content for Section One. Content for Section One. Content for
+        Section One. Content for Section One. Content for Section One. Content for Section One. Content for Section One.
+        Content for Section One. Content for Section One. Content for Section One.
+    </div>
+    <div class="section complete" id="section_1">
+        <div class="title">Section Two</div>
+        Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for
+        Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two.
+        Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for
+        Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two.
+        Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for
+        <input class="required"><br>
+        <input class="required">
+        Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two.
+        Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for
+        Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two.
+        Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for
+        Section Two. Content for Section Two. Content for Section Two. Content for Section Two. Content for Section Two.
+        Content for Section Two. Content for Section Two. Content for Section Two.
+    </div>
+    <div class="section complete" id="section_2">
+        <div class="title">Section Three</div>
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+        Content for Section Three. Content for Section Three. Content for Section Three. Content for Section Three.
+    </div>
+    <div class="section" id="section_3">
+        <div class="title">Section Four</div>
+        Content for Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content
+        for Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content for
+        Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content for Section
+        Four. Content for Section Four. Content for Section Four. Content for Section Four. Content for Section Four.
+        Content for Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content
+        for Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content for
+        Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content for Section
+        Four. Content for Section Four. Content for Section Four. Content for Section Four. Content for Section Four.
+        <input class="required complete"><input class="required"><input class="required complete">
+        Content for Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content
+        for Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content for
+        Section Four. Content for Section Four. Content for Section Four. Content for Section Four. Content for Section
+        Four. Content for Section Four.
+    </div>
+    <div class="section" id="section_4">
+        <div class="title">Section Five</div>
+        Content for Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content
+        for Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content for
+        Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content for Section
+        Five. Content for Section Five. Content for Section Five. Content for Section Five. Content for Section Five.
+        Content for Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content
+        for Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content for
+        <input class="required complete">
+        Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content for Section
+        Five. Content for Section Five. Content for Section Five. Content for Section Five. Content for Section Five.
+        Content for Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content
+        for Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content for
+        Section Five. Content for Section Five. Content for Section Five. Content for Section Five. Content for Section
+        Five. Content for Section Five.
+    </div>
+    <div class="section complete" id="section_5">
+        <div class="title">Section Six</div>
+        Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for
+        Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six.
+        Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for
+        Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six.
+        Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for
+        Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six.
+        Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for
+        Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six.
+        Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for
+        Section Six. Content for Section Six. Content for Section Six. Content for Section Six. Content for Section Six.
+        Content for Section Six. Content for Section Six. Content for Section Six.
+    </div>
+</div>
+</body>
+</html>
